@@ -4,9 +4,10 @@ module.exports = function(opts) {
 	opts = opts || {};
 	opts.errorStatus = opts.errorStatus || 401;
 	opts.errorMessage = opts.errorMessage || "Unauthorized";
+	opts.userField = opts.userField || "userId";
 
 	function middleware(req, res, next) {
-		if (req.session.userId) {
+		if (req.session[opts.userField]) {
 			next();
 			return;
 		}
@@ -16,3 +17,4 @@ module.exports = function(opts) {
 
 	return middleware;
 }
+
