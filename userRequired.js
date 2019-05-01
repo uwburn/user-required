@@ -12,7 +12,10 @@ module.exports = function(opts) {
 			return;
 		}
 
-		next(new HttpError(opts.errorStatus, opts.errorMessage));
+		if (next)
+			next(new HttpError(opts.errorStatus, opts.errorMessage));
+		else
+			throw new HttpError(opts.errorStatus, opts.errorMessage);
 	}
 
 	return middleware;
